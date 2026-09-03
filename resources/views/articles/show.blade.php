@@ -1,5 +1,5 @@
 <div>
-    Header comes here
+    Header comes here | <a href="\articles">Articles</a>
 </div>
 
 <h1>{{$article->title}}</h1>
