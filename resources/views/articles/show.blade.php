@@ -1,6 +1,4 @@
-<div>
-    Header comes here | <a href="\articles">Articles</a>
-</div>
+<x-site-layout>
 
 <h1>{{$article->title}}</h1>
 <p><i>Author: {{$article->author}}</i></p>
@@ -8,3 +6,5 @@
 <div>
     Footer comes here
 </div>
+
+</x-site-layout>
