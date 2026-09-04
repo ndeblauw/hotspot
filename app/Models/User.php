@@ -64,4 +64,9 @@ class User extends Authenticatable implements PasskeyUser
     {
         return $this->hasMany(Article::class, 'author_id');
     }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }
