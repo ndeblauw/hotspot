@@ -20,7 +20,7 @@ class ArticleFactory extends Factory
         return [
             'title' => $this->faker->sentence(),
             'content' => $this->faker->paragraph(),
-            'author' => $this->faker->name(),
+            'author_id' => $this->faker->numberBetween(1,5),
             'keyword' => $this->faker->word(),
         ];
     }

@@ -13,7 +13,7 @@ return new class extends Migration
 
             $table->string('title');
             $table->text('content')->nullable();
-            $table->string('author')->nullable();
+            $table->foreignId('author_id')->nullable();
             $table->string('keyword')->nullable();
 
             $table->timestamps();

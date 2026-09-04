@@ -8,7 +8,7 @@
                 <a href="/articles/{{ $article->id }}">
                     <b>{{ $article->title }}</b>
                 </a>
-                by {{$article->author}}
+                by {{$article->author->name}}
             </li>
         @endforeach
     </ul>
