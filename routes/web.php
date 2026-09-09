@@ -14,6 +14,8 @@ Route::get('articles/{article}', [ArticleController::class, 'show'])->name('arti
 
 // CRUD for article
 Route::get('admin/articles', [App\Http\Controllers\Admin\ArticleController::class, 'index'])->name('admin.articles.index');
+Route::get('admin/articles/create', [App\Http\Controllers\Admin\ArticleController::class, 'create'])->name('admin.articles.create');
+Route::post('admin/articles',[App\Http\Controllers\Admin\ArticleController::class, 'store'] )->name('admin.articles.store');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('dashboard', 'dashboard')->name('dashboard');

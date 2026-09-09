@@ -14,4 +14,25 @@ class ArticleController extends Controller
 
         return view('admin.articles.index', compact('articles'));
     }
+
+    //
+    public function create()
+    {
+        return view('admin.articles.create');
+    }
+
+    public function store(Request $request)
+    {
+        // Validate the request (form data)
+
+        // Create a new article
+        Article::create([
+            'title' => $request['title'],
+            'content' => $request['content'],
+            'author_id' => $request['author_id'],
+            'keyword' => 'dummy',
+        ]);
+
+        return redirect()->route('admin.articles.index');
+    }
 }
