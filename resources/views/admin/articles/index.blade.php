@@ -7,6 +7,10 @@
     <div>
         {{ $article->title }}
         <a href="{{route('admin.articles.edit',$article->id)}}" >edit</a>
-        <a href="" >delete</a>
+        <form action="{{route('admin.articles.destroy',$article->id)}}" method="POST">
+            @method('DELETE')
+            @csrf
+            <button type="submit">delete</button>
+        </form>
     </div>
 @endforeach

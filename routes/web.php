@@ -18,6 +18,7 @@ Route::get('admin/articles/create', [App\Http\Controllers\Admin\ArticleControlle
 Route::post('admin/articles',[App\Http\Controllers\Admin\ArticleController::class, 'store'] )->name('admin.articles.store');
 Route::get('admin/articles/{article}/edit', [App\Http\Controllers\Admin\ArticleController::class, 'edit'])->name('admin.articles.edit');
 Route::put('admin/articles/{article}', [App\Http\Controllers\Admin\ArticleController::class, 'update'])->name('admin.articles.update');
+Route::delete('admin/articles/{article}', [App\Http\Controllers\Admin\ArticleController::class, 'destroy'])->name('admin.articles.destroy');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('dashboard', 'dashboard')->name('dashboard');
