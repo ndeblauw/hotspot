@@ -35,4 +35,24 @@ class ArticleController extends Controller
 
         return redirect()->route('admin.articles.index');
     }
+    
+    public function edit(Article $article)
+    {
+        // $article contains the referenced article
+
+        return view('admin.articles.edit', compact('article'));
+    }
+    public function update(Request $request, Article $article)
+    {
+        // Validate the request (form data)
+
+        $article->update([
+            'title' => $request['title'],
+            'content' => $request['content'],
+            'author_id' => $request['author_id'],
+            'keyword' => 'dummy updated',
+        ]);
+
+        return redirect()->route('admin.articles.index');
+    }
 }

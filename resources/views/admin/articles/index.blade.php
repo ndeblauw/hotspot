@@ -5,6 +5,8 @@
 
 @foreach($articles as $article)
     <div>
-        {{ $article->title }}  <a href="" >edit</a> <a href="" >delete</a>
+        {{ $article->title }}
+        <a href="{{route('admin.articles.edit',$article->id)}}" >edit</a>
+        <a href="" >delete</a>
     </div>
 @endforeach
