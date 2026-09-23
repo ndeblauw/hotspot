@@ -23,7 +23,11 @@ class ArticleController extends Controller
 
     public function store(Request $request)
     {
-        // Validate the request (form data)
+        $request->validate([
+            'title' => ['required', 'string', 'max:255'],
+            'content' => ['required', 'string'],
+            'author_id' => ['required', 'integer', 'exists:users,id'],
+        ]);
 
         // Create a new article
         Article::create([
@@ -35,16 +39,21 @@ class ArticleController extends Controller
 
         return redirect()->route('admin.articles.index');
     }
-    
+
     public function edit(Article $article)
     {
         // $article contains the referenced article
 
         return view('admin.articles.edit', compact('article'));
     }
+
     public function update(Request $request, Article $article)
     {
-        // Validate the request (form data)
+        $request->validate([
+            'title' => ['required', 'string', 'max:255'],
+            'content' => ['required', 'string'],
+            'author_id' => ['required', 'integer', 'exists:users,id'],
+        ]);
 
         $article->update([
             'title' => $request['title'],
