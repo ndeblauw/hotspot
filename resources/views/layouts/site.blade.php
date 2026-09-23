@@ -15,6 +15,12 @@
         @foreach($menu as $item)
             <a href="{{$item['link']}}" style="padding-right: 8px;"> {{$item['label']}} </a>
         @endforeach
+
+        @auth
+            <a href="{{route('admin.articles.index')}}">Article management</a>
+        @else
+            <a href="{{route('login')}}">Login</a>
+        @endauth
     </div>
 
     <div class="pl-4 pt-4">

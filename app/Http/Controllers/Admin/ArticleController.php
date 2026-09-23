@@ -33,7 +33,7 @@ class ArticleController extends Controller
         Article::create([
             'title' => $request['title'],
             'content' => $request['content'],
-            'author_id' => $request['author_id'],
+            'author_id' => auth()->user()->id,
             'keyword' => 'dummy',
         ]);
 
