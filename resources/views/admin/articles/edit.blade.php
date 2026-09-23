@@ -11,12 +11,8 @@
         @error('content') <div style="color: red;">{{$message}} </div>  @enderror
     </div>
 
-    <div>
-        <label for="title">Author</label><br>
-        <input type="number" name="author_id" placeholder="Author ID" value="{{old('author_id', $article->author_id)}}">
-        @error('author_id') <div style="color: red;">{{$message}} </div>  @enderror
-    </div>
     <x-form-text-input name="title" label="Title*" placeholder="Title" value="{{$article->title}}" />
+    <x-form-number-input name="author_id" label="Author" placeholder="Author ID" value="{{$article->author_id}}" />
 
     <button type="submit">Save changes</button>
 </form>
