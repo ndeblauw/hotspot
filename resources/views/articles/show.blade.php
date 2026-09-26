@@ -1,7 +1,10 @@
 <x-site-layout>
 
 <h1>{{$article->title}}</h1>
+<hr/>
 <p><i>Author: {{$article->author->name}}</i></p>
+<p><i>Keywords:</i> @foreach($article->keywords as $keyword){{$keyword->name}}, @endforeach</p>
+<hr/>
 <p>{{$article->content}}</p>
 
 <h2>Comments</h2>
