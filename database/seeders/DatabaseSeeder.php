@@ -27,10 +27,13 @@ class DatabaseSeeder extends Seeder
 
         User::factory(10)->create();
 
-        Article::factory(10)->create();
+        $articles = Article::factory(10)->create();
 
         Comment::factory(20)->create();
 
         Keyword::factory(5)->create();
+        foreach ($articles as $article) {
+            $article->keywords()->attach(Keyword::inRandomOrder()->take(rand(0, 3))->pluck('id'));
+        }
     }
 }

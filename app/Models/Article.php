@@ -22,4 +22,9 @@ class Article extends Model
     {
         return $this->hasMany(Comment::class)->oldest();
     }
+
+    public function keywords()
+    {
+        return $this->belongsToMany(Keyword::class);
+    }
 }

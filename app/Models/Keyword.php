@@ -11,4 +11,9 @@ class Keyword extends Model
 {
     /** @use HasFactory<\Database\Factories\KeywordFactory> */
     use HasFactory;
+
+    public function articles()
+    {
+        return $this->belongsToMany(Article::class);
+    }
 }
