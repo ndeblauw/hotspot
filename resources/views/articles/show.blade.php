@@ -1,24 +1,30 @@
 <x-site-layout>
 
-<h1>{{$article->title}}</h1>
-<hr/>
-<p><i>Author: {{$article->author->name}}</i></p>
-<p><i>Keywords:</i> @foreach($article->keywords as $keyword){{$keyword->name}}, @endforeach</p>
-<hr/>
-<p>{{$article->content}}</p>
+    @foreach($article->keywords as $keyword)
+        <span class="bg-black text-green-200 text-xs rounded-full px-2">{{$keyword->name}}</span>
+    @endforeach
+    <h1 class="text-2xl font-bold">{{$article->title}}</h1>
+    <p class="mt-1 mb-6"><i>Author: {{$article->author->name}}</i></p>
 
-<h2>Comments</h2>
-@forelse($article->comments as $comment)
     <div>
-        <p><b>{{ $comment->user->name }}</b></p>
-        <p>{{ $comment->text }}</p>
+        <p>{{$article->content}}</p>
     </div>
-@empty
-    <p>No comments yet.</p>
-@endforelse
 
-<div>
-    Footer comes here
-</div>
+    <div class="py-1 border-t border-black mt-6 mb-8">
+        <h2 class="text-green-600 mb-4">Comments</h2>
+        @forelse($article->comments as $comment)
+            <div class="ml-2 mb-2">
+                <p class="text-xs font-semibold">{{ $comment->user->name }}</p>
+                <p>{{ $comment->text }}</p>
+            </div>
+        @empty
+            <p>No comments yet.</p>
+        @endforelse
+    </div>
+
+
+
+
+
 
 </x-site-layout>
