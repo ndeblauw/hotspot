@@ -1,49 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
-        <title>Site title</title>
-        <meta name="description" content="">
-        <meta name="keywords" content="">
+        <title>
+            {{ filled($title ?? null) ? $title.' - '.config('app.name', 'Laravel') : config('app.name', 'Laravel') }}
+        </title>
+        <meta name="description" content="{{ $description ?? '' }}" />
+
+        @fonts
+        @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/site-nav.js'])
     </head>
-    <body>
-    <div class="bg-gray-200 p-3">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
-            <div>Logo</div>
-            <div>
-                @foreach($menu as $item)
-                    <a href="{{$item['link']}}" style="padding-right: 8px;"> {{$item['label']}} </a>
-                @endforeach
-            </div>
-            <div>
-                @auth
-                    <a href="{{route('admin.articles.index')}}">Article management</a>
-                @else
-                    <a href="{{route('login')}}">Login</a>
-                @endauth
-            </div>
+
+    <body class="bg-paper font-sans text-ink antialiased">
+        <div class="flex min-h-screen flex-col">
+            <x-site-header :menu="$menu" />
+
+            <main class="flex-1">
+                <div class="mx-auto max-w-[87.5rem] px-5 py-10 md:px-10 md:py-15 lg:py-20">
+                    {{ $slot }}
+                </div>
+            </main>
+
+            <x-site-footer :menu="$menu" />
         </div>
-    </div>
-
-
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-h-96">
-        <div class="pt-8">
-            {{ $slot }}
-        </div>
-    </div>
-
-
-    <div class="bg-black text-green-300 py-10">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            @foreach($menu as $item)
-                <a href="{{$item['link']}}" style="padding-right: 8px; color: #03FF03;"> {{$item['label']}} </a><br/>
-            @endforeach
-        </div>
-    </div>
-
     </body>
 </html>
-
