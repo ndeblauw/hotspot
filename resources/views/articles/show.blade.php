@@ -1,34 +1,55 @@
 <x-site-layout>
+    <article class="mx-auto max-w-[43rem]">
+        <header>
+            @if ($article->keywords->isNotEmpty())
+                <ul class="mb-6 flex flex-wrap gap-2">
+                    @foreach ($article->keywords as $index => $keyword)
+                        <li>
+                            <x-site-keyword-pill :keyword="$keyword" :index="$index" />
+                        </li>
+                    @endforeach
+                </ul>
+            @endif
 
-    @foreach($article->keywords as $keyword)
-        <a class="bg-black text-green-200 text-xs rounded-full px-2" href="{{ route('keywords.show', $keyword) }}">{{$keyword->name}}</a>
-    @endforeach
-    <h1 class="text-2xl font-bold">{{$article->title}}</h1>
-    <p class="mt-1 mb-6">
-        <i>Author:
-            <a href="{{ route('authors.show', $article->author) }}">{{$article->author->name}}</a>
-        </i>
-    </p>
+            <h1 class="text-heading-2xl font-normal tracking-[-0.02em] text-ink">
+                {{ $article->title }}
+            </h1>
 
-    <div>
-        <p>{{$article->content}}</p>
-    </div>
+            <div class="mt-6 flex flex-wrap items-center gap-x-3 gap-y-1 font-label text-label-s uppercase text-ink-muted">
+                @if ($article->author)
+                    <a href="{{ route('authors.show', $article->author) }}" class="transition-colors duration-200 hover:text-ink">
+                        {{ $article->author->name }}
+                    </a>
+                @else
+                    <span>by unknown</span>
+                @endif
 
-    <div class="py-1 border-t border-black mt-6 mb-8">
-        <h2 class="text-green-600 mb-4">Comments</h2>
+                @if ($article->created_at)
+                    <span aria-hidden="true" class="text-rule-strong">/</span>
+                    <time datetime="{{ $article->created_at->toDateString() }}">{{ $article->created_at->isoFormat('D MMM YYYY') }}</time>
+                @endif
+            </div>
+        </header>
+
+        <div class="mt-10 text-body-l text-ink-soft">
+            {{ $article->content }}
+        </div>
+    </article>
+
+    <section class="mx-auto mt-16 max-w-[43rem] border-t border-rule pt-10">
+        <h2 class="font-label text-label-s uppercase text-ink-muted">
+            Comments
+        </h2>
+
         @forelse($article->comments as $comment)
-            <div class="ml-2 mb-2">
-                <p class="text-xs font-semibold">{{ $comment->user->name }}</p>
-                <p>{{ $comment->text }}</p>
+            <div class="mt-8 border-l-2 border-accent-lime pl-4">
+                <p class="font-label text-label-s uppercase text-ink-muted">
+                    {{ $comment->user->name }}
+                </p>
+                <p class="mt-2 text-body-s text-ink-soft">{{ $comment->text }}</p>
             </div>
         @empty
-            <p>No comments yet.</p>
+            <p class="mt-8 text-body-s text-ink-muted">No comments yet.</p>
         @endforelse
-    </div>
-
-
-
-
-
-
+    </section>
 </x-site-layout>

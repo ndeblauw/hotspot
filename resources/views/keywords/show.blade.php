@@ -1,26 +1,15 @@
 <x-site-layout>
+    <x-site-page-header :title="$keyword->name">
+        <p class="mt-4 font-label text-label-s uppercase text-ink-muted">
+            {{ $keyword->articles_count }} {{ Str::plural('article', $keyword->articles_count) }}
+        </p>
+    </x-site-page-header>
 
-    <h1 class="text-2xl font-bold">{{ $keyword->name }}</h1>
-    <p class="mt-1 mb-6"><i>{{ $keyword->articles_count }} {{ Str::plural('article', $keyword->articles_count) }}</i></p>
-
-    <ul class="grid grid-cols-3 gap-8">
+    <ul class="mt-10 grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2 md:mt-15 lg:grid-cols-3">
         @forelse($articles as $article)
-            <li class="p-1 border-t border-black hover:bg-gray-200">
-                <a class="block text-xl font-semibold" href="{{ route('articles.show', $article) }}">
-                    {{ $article->title }}
-                </a>
-                @if($article->author)
-                    <a class="italic text-sm" href="{{ route('authors.show', $article->author) }}">by {{ $article->author->name }}</a>
-                @else
-                    <span class="italic text-sm">by unknown</span>
-                @endif
-                <a class="block mt-4 text-gray-700" href="{{ route('articles.show', $article) }}">
-                    {{ Str::limit($article->content, 100) }}
-                </a>
-            </li>
+            <x-site-article-card :article="$article" />
         @empty
-            <li>No articles for this keyword yet.</li>
+            <li class="text-body-s text-ink-muted">No articles for this keyword yet.</li>
         @endforelse
     </ul>
-
 </x-site-layout>
