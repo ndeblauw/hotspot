@@ -1,10 +1,14 @@
 <x-site-layout>
 
     @foreach($article->keywords as $keyword)
-        <span class="bg-black text-green-200 text-xs rounded-full px-2">{{$keyword->name}}</span>
+        <a class="bg-black text-green-200 text-xs rounded-full px-2" href="{{ route('keywords.show', $keyword) }}">{{$keyword->name}}</a>
     @endforeach
     <h1 class="text-2xl font-bold">{{$article->title}}</h1>
-    <p class="mt-1 mb-6"><i>Author: {{$article->author->name}}</i></p>
+    <p class="mt-1 mb-6">
+        <i>Author:
+            <a href="{{ route('authors.show', $article->author) }}">{{$article->author->name}}</a>
+        </i>
+    </p>
 
     <div>
         <p>{{$article->content}}</p>
