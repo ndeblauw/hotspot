@@ -1,28 +1,14 @@
 <x-site-layout>
+    <x-site-page-header
+        title="Articles"
+        lede="Everything we have written so far."
+    />
 
-    <h1 class="text-2xl font-bold">Articles overview</h1>
-    <p>This is the full content of our blog</p>
-    <ul class="grid grid-cols-3 mt-8 gap-8">
-        @foreach($articles as $article)
-            <li class=" p-1 border-t border-black hover:bg-gray-200">
-                @foreach($article->keywords as $keyword)
-                    <a class="bg-black text-green-200 text-xs rounded-full px-2" href="{{ route('keywords.show', $keyword) }}">{{$keyword->name}}</a>
-                @endforeach
-
-                <a class="block text-xl font-semibold" href="{{ route('articles.show', $article) }}">
-                    {{ $article->title }}
-                </a>
-                @if($article->author)
-                    <a class="italic text-sm" href="{{ route('authors.show', $article->author) }}">by {{ $article->author->name }}</a>
-                @else
-                    <span class="italic text-sm">by unknown</span>
-                @endif
-                <a class="block mt-4 text-gray-700" href="{{ route('articles.show', $article) }}">
-                    {{ Str::limit($article->content,100) }}
-                </a>
-            </li>
-        @endforeach
+    <ul class="mt-10 grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2 md:mt-15 lg:grid-cols-3">
+        @forelse($articles as $article)
+            <x-site-article-card :article="$article" />
+        @empty
+            <li class="text-body-s text-ink-muted">No articles yet.</li>
+        @endforelse
     </ul>
-
-
 </x-site-layout>
