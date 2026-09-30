@@ -57,14 +57,16 @@ class ArticleController extends Controller
             'title' => ['required', 'string', 'max:255'],
             'content' => ['required', 'string'],
             'author_id' => ['required', 'integer', 'exists:users,id'],
+            'keywords' => ['nullable', 'array'],
         ]);
 
         $article->update([
             'title' => $request['title'],
             'content' => $request['content'],
             'author_id' => $request['author_id'],
-            'keyword' => 'dummy updated',
         ]);
+
+        $article->keywords()->sync($request['keywords']);
 
         return redirect()->route('admin.articles.index');
     }
