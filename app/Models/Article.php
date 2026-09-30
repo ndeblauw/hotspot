@@ -27,4 +27,17 @@ class Article extends Model
     {
         return $this->belongsToMany(Keyword::class);
     }
+
+    public function canChange(User $user): bool
+    {
+        if($user->id === $this->author_id) {
+            return true;
+        }
+
+        if($user->is_admin) {
+            return true;
+        }
+
+        return false;
+    }
 }

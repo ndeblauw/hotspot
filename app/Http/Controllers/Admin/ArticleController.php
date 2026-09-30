@@ -46,13 +46,19 @@ class ArticleController extends Controller
 
     public function edit(Article $article)
     {
-        // $article contains the referenced article
+        if(! $article->canChange(auth()->user())) {
+            abort(401);
+        }
 
         return view('admin.articles.edit', compact('article'));
     }
 
     public function update(Request $request, Article $article)
     {
+        if(! $article->canChange(auth()->user())) {
+            abort(401);
+        }
+
         $request->validate([
             'title' => ['required', 'string', 'max:255'],
             'content' => ['required', 'string'],
@@ -71,6 +77,10 @@ class ArticleController extends Controller
 
     public function destroy(Article $article)
     {
+        if(! $article->canChange(auth()->user())) {
+            abort(401);
+        }
+
         $article->delete();
 
         return redirect()->route('admin.articles.index');
