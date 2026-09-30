@@ -1,14 +1,18 @@
 <?php
 
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 
 // Public routes of my application
 Route::get('/', [WelcomeController::class, 'index'])->name('home');
 
-Route::get('articles', [ArticleController::class, 'index']);
+Route::get('articles', [ArticleController::class, 'index'])->name('articles.index');
 Route::get('articles/{article}', [ArticleController::class, 'show'])->name('articles.show');
+
+Route::get('authors', [AuthorController::class, 'index'])->name('authors.index');
+Route::get('authors/{user}', [AuthorController::class, 'show'])->name('authors.show');
 
 // Management routes
 Route::middleware(['auth'])->group(function () {

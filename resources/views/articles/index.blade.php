@@ -9,11 +9,15 @@
                     <span class="bg-black text-green-200 text-xs rounded-full px-2">{{$keyword->name}}</span>
                 @endforeach
 
-                <a class="block text-xl font-semibold" href="/articles/{{ $article->id }}">
+                <a class="block text-xl font-semibold" href="{{ route('articles.show', $article) }}">
                     {{ $article->title }}
                 </a>
-                <span class="italic text-sm">by {{$article->author?->name ?? 'unknown'}}</span>
-                <a class="block mt-4 text-gray-700" href="/articles/{{ $article->id }}">
+                @if($article->author)
+                    <a class="italic text-sm" href="{{ route('authors.show', $article->author) }}">by {{ $article->author->name }}</a>
+                @else
+                    <span class="italic text-sm">by unknown</span>
+                @endif
+                <a class="block mt-4 text-gray-700" href="{{ route('articles.show', $article) }}">
                     {{ Str::limit($article->content,100) }}
                 </a>
             </li>
