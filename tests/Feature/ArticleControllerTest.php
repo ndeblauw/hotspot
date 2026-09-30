@@ -15,7 +15,7 @@ it('lists articles on the index page, and if author is unknow, show unknown', fu
 
     $response->assertStatus(200);
     $response->assertSee('Hello World');
-    $response->assertSee(' by unknown');
+    $response->assertSee('by unknown');
 });
 
 it('lists articles on the index page with their author name', function () {
@@ -35,6 +35,6 @@ it('lists articles on the index page with their author name', function () {
     // Assert
     $response->assertStatus(200);
     $response->assertSee('Hello World');
-    $response->assertDontSee(' by unknown');
-    $response->assertSee(' by John Doe');
+    $response->assertDontSee('by unknown');
+    $response->assertSee('by John Doe');
 });
