@@ -9,6 +9,7 @@ use Illuminate\View\Component;
 class SiteLayout extends Component
 {
     public $menu;
+
     /**
      * Create a new component instance.
      */
@@ -18,6 +19,7 @@ class SiteLayout extends Component
             ['label' => 'Home', 'link' => route('home')],
             ['label' => 'Articles', 'link' => route('articles.index')],
             ['label' => 'Authors', 'link' => route('authors.index')],
+            ['label' => 'Keywords', 'link' => route('keywords.index')],
             ['label' => 'About', 'link' => '/about'],
         ];
     }

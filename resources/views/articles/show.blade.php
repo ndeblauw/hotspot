@@ -1,7 +1,7 @@
 <x-site-layout>
 
     @foreach($article->keywords as $keyword)
-        <span class="bg-black text-green-200 text-xs rounded-full px-2">{{$keyword->name}}</span>
+        <a class="bg-black text-green-200 text-xs rounded-full px-2" href="{{ route('keywords.show', $keyword) }}">{{$keyword->name}}</a>
     @endforeach
     <h1 class="text-2xl font-bold">{{$article->title}}</h1>
     <p class="mt-1 mb-6">

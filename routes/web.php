@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\AuthorController;
+use App\Http\Controllers\KeywordController;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -13,6 +14,9 @@ Route::get('articles/{article}', [ArticleController::class, 'show'])->name('arti
 
 Route::get('authors', [AuthorController::class, 'index'])->name('authors.index');
 Route::get('authors/{user}', [AuthorController::class, 'show'])->name('authors.show');
+
+Route::get('keywords', [KeywordController::class, 'index'])->name('keywords.index');
+Route::get('keywords/{keyword}', [KeywordController::class, 'show'])->name('keywords.show');
 
 // Management routes
 Route::middleware(['auth'])->group(function () {
