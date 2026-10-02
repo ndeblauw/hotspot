@@ -7,7 +7,7 @@
 
     <x-form-text-input name="title" label="Title*" placeholder="Title" value="{{$article->title}}" />
     <x-form-textarea name="content" label="Content" placeholder="Your article content" value="{{$article->content}}" />
-    <x-form-number-input name="author_id" label="Author" placeholder="Author ID" value="{{$article->author_id}}" />
+    <x-form-select name="author_id" label="Author" :options="$author_options" value="{{$article->author_id}}" />
     <x-form-checkboxes name="keywords" label="Keywords" :values="$article->keywords->pluck('id')->toArray()" :options="$keyword_options"/>
     <button type="submit">Save changes</button>
 </form>
