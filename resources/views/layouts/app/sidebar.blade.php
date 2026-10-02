@@ -18,6 +18,9 @@
                     <flux:sidebar.item icon="home" :href="route('admin.articles.index')" :current="request()->routeIs('admin.articles.*')" wire:navigate>
                         {{ __('Article management') }}
                     </flux:sidebar.item>
+                    <flux:sidebar.item icon="tag" :href="route('admin.keywords.index')" :current="request()->routeIs('admin.keywords.*')" wire:navigate>
+                        {{ __('Keyword management') }}
+                    </flux:sidebar.item>
                 </flux:sidebar.group>
             </flux:sidebar.nav>
 

@@ -27,6 +27,14 @@ Route::middleware(['auth'])->group(function () {
     Route::get('admin/articles/{article}/edit', [App\Http\Controllers\Admin\ArticleController::class, 'edit'])->name('admin.articles.edit');
     Route::put('admin/articles/{article}', [App\Http\Controllers\Admin\ArticleController::class, 'update'])->name('admin.articles.update');
     Route::delete('admin/articles/{article}', [App\Http\Controllers\Admin\ArticleController::class, 'destroy'])->name('admin.articles.destroy');
+
+    // CRUD for keyword
+    Route::get('admin/keywords', [App\Http\Controllers\Admin\KeywordController::class, 'index'])->name('admin.keywords.index');
+    Route::get('admin/keywords/create', [App\Http\Controllers\Admin\KeywordController::class, 'create'])->name('admin.keywords.create');
+    Route::post('admin/keywords', [App\Http\Controllers\Admin\KeywordController::class, 'store'])->name('admin.keywords.store');
+    Route::get('admin/keywords/{keyword}/edit', [App\Http\Controllers\Admin\KeywordController::class, 'edit'])->name('admin.keywords.edit');
+    Route::put('admin/keywords/{keyword}', [App\Http\Controllers\Admin\KeywordController::class, 'update'])->name('admin.keywords.update');
+    Route::delete('admin/keywords/{keyword}', [App\Http\Controllers\Admin\KeywordController::class, 'destroy'])->name('admin.keywords.destroy');
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
