@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Article;
+use App\Models\Keyword;
 use Illuminate\Http\Request;
 
 class ArticleController extends Controller
@@ -22,7 +23,9 @@ class ArticleController extends Controller
     //
     public function create()
     {
-        return view('admin.articles.create');
+        $keyword_options = Keyword::orderBy('name')->pluck('name', 'id')->toArray();
+
+        return view('admin.articles.create', compact('keyword_options'));
     }
 
     public function store(Request $request)
@@ -34,12 +37,13 @@ class ArticleController extends Controller
         ]);
 
         // Create a new article
-        Article::create([
+        $article = Article::create([
             'title' => $request['title'],
             'content' => $request['content'],
             'author_id' => auth()->user()->id,
-            'keyword' => 'dummy',
         ]);
+
+        $article->keywords()->sync($request['keywords']);
 
         return redirect()->route('admin.articles.index');
     }
@@ -50,7 +54,9 @@ class ArticleController extends Controller
             abort(401);
         }
 
-        return view('admin.articles.edit', compact('article'));
+        $keyword_options = Keyword::orderBy('name')->pluck('name', 'id')->toArray();
+
+        return view('admin.articles.edit', compact('article', 'keyword_options'));
     }
 
     public function update(Request $request, Article $article)
@@ -63,14 +69,16 @@ class ArticleController extends Controller
             'title' => ['required', 'string', 'max:255'],
             'content' => ['required', 'string'],
             'author_id' => ['required', 'integer', 'exists:users,id'],
+            'keywords' => ['nullable', 'array'],
         ]);
 
         $article->update([
             'title' => $request['title'],
             'content' => $request['content'],
             'author_id' => $request['author_id'],
-            'keyword' => 'dummy updated',
         ]);
+
+        $article->keywords()->sync($request['keywords']);
 
         return redirect()->route('admin.articles.index');
     }
