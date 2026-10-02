@@ -8,7 +8,10 @@ use Illuminate\View\Component;
 
 class SiteLayout extends Component
 {
-    public $menu;
+    /**
+     * @var list<array{label: string, link: string, match: string}>
+     */
+    public array $menu;
 
     /**
      * Create a new component instance.
@@ -16,11 +19,10 @@ class SiteLayout extends Component
     public function __construct()
     {
         $this->menu = [
-            ['label' => 'Home', 'link' => route('home')],
-            ['label' => 'Articles', 'link' => route('articles.index')],
-            ['label' => 'Authors', 'link' => route('authors.index')],
-            ['label' => 'Keywords', 'link' => route('keywords.index')],
-            ['label' => 'About', 'link' => '/about'],
+            ['label' => 'Home', 'link' => route('home'), 'match' => 'home'],
+            ['label' => 'Articles', 'link' => route('articles.index'), 'match' => 'articles.*'],
+            ['label' => 'Authors', 'link' => route('authors.index'), 'match' => 'authors.*'],
+            ['label' => 'Keywords', 'link' => route('keywords.index'), 'match' => 'keywords.*'],
         ];
     }
 

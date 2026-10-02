@@ -1,26 +1,15 @@
 <x-site-layout>
+    <x-site-page-header :title="$author->name">
+        <p class="mt-4 font-label text-label-s uppercase text-ink-muted">
+            {{ $author->articles_count }} {{ Str::plural('article', $author->articles_count) }}
+        </p>
+    </x-site-page-header>
 
-    <h1 class="text-2xl font-bold">{{ $author->name }}</h1>
-    <p class="mt-1 mb-6"><i>{{ $author->articles_count }} {{ Str::plural('article', $author->articles_count) }}</i></p>
-
-    <ul class="grid grid-cols-3 gap-8">
+    <ul class="mt-10 grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2 md:mt-15 lg:grid-cols-3">
         @forelse($articles as $article)
-            <li class="p-1 border-t border-black hover:bg-gray-200">
-                @foreach($article->keywords as $keyword)
-                    <a class="bg-black text-green-200 text-xs rounded-full px-2" href="{{ route('keywords.show', $keyword) }}">{{ $keyword->name }}</a>
-                @endforeach
-
-                <a class="block text-xl font-semibold" href="{{ route('articles.show', $article) }}">
-                    {{ $article->title }}
-                </a>
-                <span class="italic text-sm">{{ $article->created_at?->toFormattedDateString() }}</span>
-                <a class="block mt-4 text-gray-700" href="{{ route('articles.show', $article) }}">
-                    {{ Str::limit($article->content, 100) }}
-                </a>
-            </li>
+            <x-site-article-card :article="$article" />
         @empty
-            <li>This author has no articles yet.</li>
+            <li class="text-body-s text-ink-muted">This author has no articles yet.</li>
         @endforelse
     </ul>
-
 </x-site-layout>

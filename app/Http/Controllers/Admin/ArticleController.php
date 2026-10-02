@@ -50,6 +50,10 @@ class ArticleController extends Controller
 
     public function edit(Article $article)
     {
+        if(! $article->canChange(auth()->user())) {
+            abort(401);
+        }
+
         $keyword_options = Keyword::orderBy('name')->pluck('name', 'id')->toArray();
 
         return view('admin.articles.edit', compact('article', 'keyword_options'));
@@ -57,6 +61,10 @@ class ArticleController extends Controller
 
     public function update(Request $request, Article $article)
     {
+        if(! $article->canChange(auth()->user())) {
+            abort(401);
+        }
+
         $request->validate([
             'title' => ['required', 'string', 'max:255'],
             'content' => ['required', 'string'],
@@ -77,6 +85,10 @@ class ArticleController extends Controller
 
     public function destroy(Article $article)
     {
+        if(! $article->canChange(auth()->user())) {
+            abort(401);
+        }
+
         $article->delete();
 
         return redirect()->route('admin.articles.index');
