@@ -36,6 +36,7 @@ class ArticleController extends Controller
             'title' => ['required', 'string', 'max:255'],
             'content' => ['required', 'string'],
             'author_id' => ['required', 'integer', 'exists:users,id'],
+            'image' => ['nullable', 'image', 'max:8192'],
         ]);
 
         // Create a new article
@@ -46,6 +47,10 @@ class ArticleController extends Controller
         ]);
 
         $article->keywords()->sync($request['keywords']);
+
+        if ($request->hasFile('image')) {
+            $article->addMediaFromRequest('image')->toMediaCollection('images');
+        }
 
         return redirect()->route('admin.articles.index');
     }
@@ -73,6 +78,7 @@ class ArticleController extends Controller
             'content' => ['required', 'string'],
             'author_id' => ['required', 'integer', 'exists:users,id'],
             'keywords' => ['nullable', 'array'],
+            'image' => ['nullable', 'image', 'max:8192'],
         ]);
 
         $article->update([
@@ -82,6 +88,10 @@ class ArticleController extends Controller
         ]);
 
         $article->keywords()->sync($request['keywords']);
+
+        if ($request->hasFile('image')) {
+            $article->addMediaFromRequest('image')->toMediaCollection('images');
+        }
 
         return redirect()->route('admin.articles.index');
     }

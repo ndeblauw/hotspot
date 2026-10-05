@@ -31,6 +31,10 @@
             </div>
         </header>
 
+        <div>
+            <img src="{{$article->getFirstMediaUrl('images')}}">
+        </div>
+
         <div class="mt-10 text-body-l text-ink-soft">
             {{ $article->content }}
         </div>
